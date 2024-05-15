@@ -1,0 +1,129 @@
+<div class="container">
+	<div class="container-svg">
+		<svg>
+			<text class="dashed" x="0" y="0" dominant-baseline="hanging">
+				<tspan x="0" dy="0">Dashed</tspan><tspan x="0" dy="1em">text</tspan><tspan x="0" dy="1em">outline</tspan>
+			</text>
+		</svg>
+	</div>
+	
+	<div class="container-svg">
+		<svg>
+			<text class="dashed blue" x="0" y="0" dominant-baseline="hanging">
+				<tspan x="0" dy="0">Dashed</tspan><tspan x="0" dy="1em">text</tspan><tspan x="0" dy="1em">outline</tspan>
+			</text>
+		</svg>
+	</div>
+	
+	
+	<!--<div class="container-svg">
+		<svg>
+			<text class="dashed" x="0" y="0" dominant-baseline="hanging">
+				<tspan x="0" dy="0">Dashed</tspan><tspan x="0" dy="1em">text</tspan><tspan x="0" dy="1em">outline</tspan>
+			</text>
+			<text x="0" y="0" dominant-baseline="hanging">
+				<tspan x="0" dy="0">Dashed</tspan><tspan x="0" dy="1em">text</tspan><tspan x="0" dy="1em">outline</tspan>
+			</text>
+		</svg>
+	</div>-->
+	
+	<div class="container-svg">
+		<svg>
+			<text class="dashed" x="50%" y="0" dominant-baseline="hanging" text-anchor="middle">
+				<tspan x="50%" dy="0">Dashed</tspan><tspan x="50%" dy="1em">text</tspan><tspan x="50%" dy="1em">outline</tspan><tspan x="50%" dy="1em">centered</tspan>
+			</text>
+		</svg>
+	</div>
+</div>
+
+
+<style>
+  .container {
+  margin: auto;
+  width: 900px;
+}
+@media screen and (min-width: 1750px) {
+  .container {
+    width: 1720px;
+  }
+}
+@font-face {
+  font-family: "gistbold";
+  src: url("../fonts/gist/Geist-Bold.ttf") format("truetype");
+  font-weight: 400;
+}
+
+.container-svg {
+  position: relative;
+}
+
+svg {
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+text {
+  display: block;
+  fill: white;
+  font-size: 150px;
+  font-weight: bold;
+  font-family: "gistbold", sans-serif;
+}
+text.dashed {
+  fill: none;
+  stroke: #CF122D;
+  stroke-width: 3px;
+  stroke-dasharray: 5px, 5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+text.dashed.blue {
+  stroke: #25303B;
+}
+</style>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	  let containerSvg = document.querySelectorAll('.container-svg');
+	  let that, svg, text, bbox, width, height, calcRatio, strokeDasharray, newValueStroke;
+	  let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+	  let isRetina = false;
+	  if (matchMedia("(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)").matches) {
+		isRetina = true;
+	  }
+	  containerSvg.forEach(function(container) {
+		that = container;
+		// Set viewBox size
+		svg = that.querySelector('svg');
+		text = that.querySelector('text');
+		bbox = text.getBBox();
+		width = that.clientWidth;
+		height = bbox.height;
+		svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+		// Set container height with ratio
+		calcRatio = (height * 100 / width);
+		that.style.paddingBottom = calcRatio + '%';
+		if (isSafari) { // Safari fix
+		  text.setAttribute('y', '1em');
+		}
+		if (isRetina) {
+		  strokeDasharray = window.getComputedStyle(text).strokeDasharray;
+		  newValueStroke = retinaStrokeDasharray(strokeDasharray);
+		  text.style.strokeDasharray = newValueStroke;
+		}
+	  });
+	});
+  
+	function retinaStrokeDasharray(value) {
+	  let array = value.split(",");
+	  for (let i = 0; i < array.length; i++) {
+		array[i] = (parseInt(array[i]) * 2) + 'px';
+	  }
+	  return array.join(', ');
+	}
+  </script>
+  
