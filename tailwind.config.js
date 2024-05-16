@@ -29,9 +29,9 @@ module.exports = {
         textSecondary: "var(--text-secondary)",
       },
       cursor: {
-        default: "url(./src/assets/default.svg) , default",
-        pointer: "url(./handpointing.svg) , pointer",
-        text: "url(./textcursor.svg) , text",
+        default: "url(@assets/default.svg) , default",
+        pointer: "url(@assets/handpointing.svg) , pointer",
+        text: "url(@assets/textcursor.svg) , text",
         grabbing: "grabbing",
       },
       screens: {
