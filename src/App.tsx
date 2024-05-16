@@ -5,6 +5,7 @@ import TextReveal from "@ui/text-reveal";
 import { cn } from "./utils/cn";
 import GridPattern from "@ui/gridPatterns";
 import Projects from "@components/projects";
+import StatGraph from "@components/statGraph";
 
 const App = () => {
   return (
@@ -81,6 +82,14 @@ const App = () => {
             </div>
           </section>
           <section className="m-10 mt-20 xs:m-0 xs:mt-10">
+            <h2 className="font-GistBold text-textSecondary text-3xl">
+              Yes, I use <span className="underlinetext text-textPrimary">Leetcode</span>
+            </h2>
+            <div className="w-full mt-4 overflow-x-auto	">
+             <StatGraph /> 
+            </div>
+          </section>
+          <section className="m-10 mt-20 xs:m-0 xs:mt-4">
             <h2 className="font-GistBold text-textSecondary text-3xl">
               Recent Projects
             </h2>

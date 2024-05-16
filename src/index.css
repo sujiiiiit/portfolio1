@@ -69,6 +69,15 @@ body.dark {
   --color-accent-primary: #fff0ed;
   --color-accent-secondary: #c5b5ff;
   --color-background: #ffffff;
+  --graph-fill: #e8ffe9;
+  --light-green-20: #aff0b4;
+  --light-green-30: #7be187;
+  --light-green-40: #4dd161;
+  --light-green-50: #24c241;
+  --light-green-60: #01b328;
+  --light-green-70: #019927;
+  --light-green-80: #008024;
+  --light-green-90: #006620;
 }
 .dark {
   --text-secondary: rgb(134, 134, 139);

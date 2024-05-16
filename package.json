@@ -15,6 +15,7 @@
     "framer-motion": "^11.2.0",
     "path": "^0.12.7",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-grid-system": "^8.2.0",
     "react-responsive": "^10.0.0",

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Contribution Graph</title>
+    <style>
+      :root {
+        --graph-fill: #aaa;
+        --text-secondary: rgb(110, 110, 115);
+        --light-green-20: #aff0b4;
+        --light-green-30: #7be187;
+        --light-green-40: #4dd161;
+        --light-green-50: #24c241;
+        --light-green-60: #01b328;
+        --light-green-70: #019927;
+        --light-green-80: #008024;
+        --light-green-90: #006620;
+        /* Add more color variables if needed */
+      }
+
+      #svgInput,
+      #replacedSVG {
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      #svgContainer {
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea
+      id="svgInput"
+      rows="10"
+      cols="50"
+      placeholder="Paste your SVG code here..."
+    ></textarea>
+    <button id="replaceButton">Replace</button>
+    <div id="svgContainer"></div>
+    <textarea
+      id="replacedSVG"
+      rows="10"
+      cols="50"
+      placeholder="Replaced SVG code will appear here..."
+      readonly
+    ></textarea>
+    <script>
+      document
+        .getElementById("replaceButton")
+        .addEventListener("click", function () {
+          const svgInput = document.getElementById("svgInput").value;
+          const svgContainer = document.getElementById("svgContainer");
+          const replacedSVGTextarea = document.getElementById("replacedSVG");
+
+          const randomColors = [
+            "var(--graph-fill)",
+            "var(--text-secondary)",
+            "var(--light-green-20)",
+            "var(--light-green-30)",
+            "var(--light-green-40)",
+            "var(--light-green-50)",
+            "var(--light-green-60)",
+            "var(--light-green-70)",
+            "var(--light-green-80)",
+            "var(--light-green-90)",
+            /* Add more color variables if needed */
+          ];
+
+          const randomFill = () => {
+            const randomIndex = Math.floor(Math.random() * randomColors.length);
+            return randomColors[randomIndex];
+          };
+
+          const replacedSVG = svgInput.replace(
+            /fill="transparent"|fill="var\(--fill-tertiary\)"/g,
+            function (match) {
+              if (match === 'fill="transparent"') {
+                return 'fill="transparent"';
+              } else {
+                return 'fill="' + randomFill() + '"';
+              }
+            }
+          );
+
+          svgContainer.innerHTML = replacedSVG;
+          replacedSVGTextarea.value = replacedSVG;
+        });
+    </script>
+  </body>
+</html>
