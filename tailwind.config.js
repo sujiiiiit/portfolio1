@@ -30,8 +30,8 @@ module.exports = {
       },
       cursor: {
         default: "url(./src/assets/default.svg) , default",
-        pointer: "url(./assets/handpointing.svg) , pointer",
-        text: "url(./assets/textcursor.svg) , text",
+        pointer: "url(./handpointing.svg) , pointer",
+        text: "url(./textcursor.svg) , text",
         grabbing: "grabbing",
       },
       screens: {
