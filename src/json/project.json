@@ -1,0 +1,68 @@
+{
+  "website_development": [
+    {
+      "name": "RecipeRover",
+      "description": "RecipeRover is a web app that helps users discover and explore new recipes based on their dietary preferences, ingredients, and nutritional requirements. Step-by-step instructions and nutritional info included.",
+      "tech_stacks": ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "Express.js", "MongoDB"]
+    },
+    {
+      "name": "EcoMarket",
+      "description": "EcoMarket is an online marketplace for eco-friendly products. Connects eco-conscious consumers with sellers offering environmentally friendly alternatives. Browse, read reviews, and securely make purchases.",
+      "tech_stacks": ["HTML", "CSS", "JavaScript", "Vue.js", "Django", "PostgreSQL", "Stripe API"]
+    },
+    {
+      "name": "TravelExplorer",
+      "description": "TravelExplorer is a website for discovering and planning travel adventures. Browse destinations, find tips, book accommodations, and create personalized itineraries.",
+      "tech_stacks": ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "Express.js", "MongoDB"]
+    },
+    {
+      "name": "JobConnector",
+      "description": "JobConnector is a platform connecting job seekers with employers. Create profiles, search job openings, apply, and manage applications. Employers post listings, review applications, and communicate with candidates.",
+      "tech_stacks": ["HTML", "CSS", "JavaScript", "Vue.js", "Django", "PostgreSQL", "Firebase Authentication"]
+    }
+  ],
+  "ai_ml": [
+    {
+      "name": "HealthGuard",
+      "description": "HealthGuard is an AI-powered health monitoring system analyzing health metrics from wearable devices. Provides personalized insights and alerts for potential health risks.",
+      "tech_stacks": ["Python", "TensorFlow", "Flask", "Docker", "AWS", "Google Cloud Platform"]
+    },
+    {
+      "name": "ChatBot360",
+      "description": "ChatBot360 is an AI-powered chatbot for personalized customer support. Understands queries and responds with relevant information or solutions.",
+      "tech_stacks": ["Python", "NLTK", "Flask", "Docker", "AWS", "Google Cloud Platform"]
+    },
+    {
+      "name": "StockPredictor",
+      "description": "StockPredictor is a ML model forecasting stock prices based on historical data and market trends. Analyzes company performance, economic indicators, and news sentiment.",
+      "tech_stacks": ["Python", "Scikit-learn", "Pandas", "Flask", "Docker", "AWS", "Google Cloud Platform"]
+    },
+    {
+      "name": "ImageRecognizer",
+      "description": "ImageRecognizer is an AI-powered image recognition system identifying objects, people, and scenes in photos or videos.",
+      "tech_stacks": ["Python", "TensorFlow", "Keras", "Flask", "Docker", "AWS", "Google Cloud Platform"]
+    }
+  ],
+  "mobile_development": [
+    {
+      "name": "FitTrack",
+      "description": "FitTrack is a mobile fitness tracking app for setting and achieving health goals. Track activities, calories burned, and workouts. Provides personalized plans, progress tracking, and social features.",
+      "tech_stacks": ["Swift", "UIKit", "Core Data", "Firebase"]
+    },
+    {
+      "name": "BudgetBuddy",
+      "description": "BudgetBuddy is a mobile app for managing finances and tracking expenses. Set budgets, categorize transactions, and visualize spending patterns.",
+      "tech_stacks": ["Kotlin", "Android Jetpack", "Room", "Firebase"]
+    },
+    {
+      "name": "TravelBuddy",
+      "description": "TravelBuddy is a mobile app for enhancing the travel experience. Provides travel guides, itinerary planning, real-time bookings, and location-based recommendations.",
+      "tech_stacks": ["Swift", "UIKit", "Core Location", "MapKit", "Firebase"]
+    },
+    {
+      "name": "RecipeSavor",
+      "description": "RecipeSavor is a mobile app offering a collection of recipes from various cuisines. Search, save favorites, create shopping lists, and share recipes.",
+      "tech_stacks": ["Kotlin", "Android Jetpack", "Room", "Firebase"]
+    }
+  ]
+}

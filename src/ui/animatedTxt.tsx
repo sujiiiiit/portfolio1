@@ -1,4 +1,4 @@
-import { cn } from "../utils/cn";
+import { cn } from "@libs/utils";
 import { CSSProperties, FC, ReactNode } from "react";
 
 interface AnimatedShinyTextProps {

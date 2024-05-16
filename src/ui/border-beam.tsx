@@ -1,4 +1,4 @@
-import { cn } from "../utils/cn";
+import { cn } from "@libs/utils";
 
 interface BorderBeamProps {
   className?: string;
@@ -22,7 +22,7 @@ export const BorderBeam = ({
   delay = 0,
 }: BorderBeamProps) => {
   return (
-    <div
+    <span
       style={
         {
           "--size": size,

@@ -1,4 +1,4 @@
-import { cn } from "../utils/cn";
+import { cn } from "@libs/utils";
 import TextShimmer from "../ui/animatedTxt";
 import { BorderBeam } from "../ui/border-beam";
 
