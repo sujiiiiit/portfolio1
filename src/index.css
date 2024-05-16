@@ -27,6 +27,11 @@
   src: url("../fonts/gist/Geist-Thin.ttf") format("truetype");
   font-weight: 400;
 }
+@font-face {
+  font-family: "gistmono";
+  src: url("../fonts/gist/GeistMonoVF.ttf") format("truetype");
+  font-weight: 400;
+}
 * {
   box-sizing: border-box;
 }

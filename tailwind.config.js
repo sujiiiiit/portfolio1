@@ -20,6 +20,7 @@ module.exports = {
       Gist: ['"gistregular"', "sans-serif"],
       GistBold: ['"gistbold"', "sans-serif"],
       GistThin: ['"gistthin"', "sans-serif"],
+      GistMono: ['"gistMono"', "sans-serif"],
     },
     extend: {
       colors: {
@@ -29,8 +30,8 @@ module.exports = {
       },
       cursor: {
         default: "url(./src/assets/default.svg) , default",
-        pointer: "url(./src/assets/handpointing.svg) , pointer",
-        text: "url(./src/assets/textcursor.svg) , text",
+        pointer: "url(./assets/handpointing.svg) , pointer",
+        text: "url(./assets/textcursor.svg) , text",
         grabbing: "grabbing",
       },
       screens: {
