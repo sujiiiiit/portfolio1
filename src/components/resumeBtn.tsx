@@ -1,6 +1,5 @@
 import { cn } from "@libs/utils";
-import TextShimmer from "../ui/animatedTxt";
-import { BorderBeam } from "../ui/border-beam";
+import TextShimmer from "@ui/animatedTxt";
 
 export default function TextShimmerDemo() {
   return (
@@ -36,8 +35,6 @@ export default function TextShimmerDemo() {
               />
             </svg>
           </span>
-          <BorderBeam size={60} duration={6} delay={3} />
-
         </TextShimmer>
       </div>
     </div>

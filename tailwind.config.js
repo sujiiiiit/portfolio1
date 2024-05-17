@@ -27,6 +27,7 @@ module.exports = {
         "grid-border-color": "var( --grid-border-color)",
         textPrimary: "var(--text-primary)",
         textSecondary: "var(--text-secondary)",
+        transparentWhite: "var(--graph-fill)",
       },
       cursor: {
         default: "url(@assets/default.svg) , default",
