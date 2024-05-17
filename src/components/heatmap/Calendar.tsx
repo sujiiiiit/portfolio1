@@ -114,12 +114,12 @@ const Calendar: React.FC<CalendarProps> = ({
                     moveTransition="transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
                     singleton={target}
                     delay={500}
-                    arrow='<svg width="16" height="6" xmlns="http://www.w3.org/2000/svg"><path d="M0 6s1.796-.013 4.67-3.615C5.851.9 6.93.006 8 0c1.07-.006 2.148.887 3.343 2.385C14.233 6.005 16 6 16 6H0z"></svg>'
+                    arrow="false"
                     theme="custom"
                     key={`box-${dayIndex + 1}`}
                     content={`${frequency} submissions on ${monthData[selectedMonth]} ${x}, ${selectedYear}`}
                     placement="top"
-                    className="font-Gist text-textPrimary"
+                   
                   >
                     <div
                       className={`${
