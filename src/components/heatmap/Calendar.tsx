@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   format,
   fromUnixTime,
   startOfMonth,
-  endOfMonth,
   getDaysInMonth,
   getDay,
   subMonths,
@@ -22,7 +21,6 @@ const Calendar: React.FC<CalendarProps> = ({
   submissionCalendar,
   selectedMonths,
   selectedYear,
-  isCurrentMonth,
   monthData,
 }) => {
   // Parse the submissionCalendar JSON string
@@ -58,7 +56,7 @@ const Calendar: React.FC<CalendarProps> = ({
           const date = new Date(selectedYear, selectedMonth);
           const currMonth = selectedMonth;
           const currYear = selectedYear;
-          const currDate = new Date().getDate();
+          // const currDate = new Date().getDate();
           const firstDayOfMonth = getDay(startOfMonth(date));
           const lastDateOfMonth = getDaysInMonth(date);
           const lastDateOfLastMonth = getDaysInMonth(subMonths(date, 1));

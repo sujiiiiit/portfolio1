@@ -1,5 +1,5 @@
 import React from "react";
-import { subMonths, getMonth } from "date-fns";
+import { getMonth } from "date-fns";
 import Calendar from "@components/heatmap/Calendar";
 
 const MyComponent: React.FC = () => {
