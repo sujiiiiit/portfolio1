@@ -190,7 +190,7 @@ const ProjectList: React.FC = () => {
     <div>
       {/* Filter buttons */}
       <div className=" flex text-base xs:text-sm my-6 xs:my-3 flex-row items-center justify-start xs:justify-around [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full ">
-        {["All", "Web", "Mobile", "AI & ML", "Finance"].map((category) => (
+        {["All", "Web", "Mobile", "AI & ML"].map((category) => (
           <button
             key={category}
             onClick={() => filterProjects(category)}

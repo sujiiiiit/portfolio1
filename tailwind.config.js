@@ -28,6 +28,7 @@ module.exports = {
         textPrimary: "var(--text-primary)",
         textSecondary: "var(--text-secondary)",
         transparentWhite: "var(--graph-fill)",
+        partBackground: "var(--partbackground)",
       },
       cursor: {
         default: "url(@assets/default.svg) , default",

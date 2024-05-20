@@ -1,17 +1,21 @@
 import React from "react";
+import LeetcodeCharts from "./chart/LeetcodeChart";
 import { getMonth } from "date-fns";
-import Calendar from "@components/heatmap/Calendar";
+import SubmissionGraph from "./heatmap/Calendar";
 
-const MyComponent: React.FC = () => {
+export default function LeetCode() {
   const submissionCalendar = JSON.stringify({ "1700870400": 2 });
 
   const currentMonthIndex = getMonth(new Date()); // Get the current month index (0-indexed)
   const selectedMonths = [
+    (currentMonthIndex -  + 12) % 12, // Subtract 2 months
+    (currentMonthIndex - 3 + 12) % 12, // Subtract 2 months
     (currentMonthIndex - 2 + 12) % 12, // Subtract 2 months
     (currentMonthIndex - 1 + 12) % 12, // Subtract 1 month
     currentMonthIndex, // Current month
   ];
-  const selectedYear = 2024; // Selected year
+  // const selectedMonths = [ 8, 9, 10];
+  const selectedYear = 2023; // Selected year
   const isCurrentMonth = true;
   const monthData = [
     "January",
@@ -27,10 +31,10 @@ const MyComponent: React.FC = () => {
     "November",
     "December",
   ];
-
   return (
-    <div>
-      <Calendar
+    <div className=" p-4 xs:p-0 flex  xs:flex-col overflow-hidden items-center">
+      <LeetcodeCharts />
+      <SubmissionGraph
         submissionCalendar={submissionCalendar}
         selectedMonths={selectedMonths}
         selectedYear={selectedYear}
@@ -39,6 +43,4 @@ const MyComponent: React.FC = () => {
       />
     </div>
   );
-};
-
-export default MyComponent;
+}

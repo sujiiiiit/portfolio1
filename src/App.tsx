@@ -82,10 +82,11 @@ const App = () => {
           </section>
           <section className="m-10  xs:m-0 xs:mt-10">
             <h2 className="font-GistBold text-textSecondary text-3xl">
-              Yes, I use <span className="underlinetext text-textPrimary">Leetcode</span>
+              Yes, I use{" "}
+              <span className="underlinetext text-textPrimary">Leetcode</span>
             </h2>
             <div className="w-full mt-4 overflow-x-auto	">
-             <LeetCode /> 
+              <LeetCode />
             </div>
           </section>
           <section className="m-10  xs:m-0 xs:mt-4">

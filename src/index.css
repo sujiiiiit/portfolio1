@@ -78,6 +78,7 @@ body.dark {
   --light-green-70: #019927;
   --light-green-80: #008024;
   --light-green-90: #006620;
+  --partbackground:transparent;
 }
 .dark {
   --text-secondary: rgb(134, 134, 139);
@@ -86,6 +87,8 @@ body.dark {
   --color-accent-secondary: #9c40ff;
   --color-background: #000000;
   --graph-fill: rgb(255, 255, 255, 0.2);
+  --partbackground:var(--graph-fill);
+
 }
 .gradientanimation {
   line-height: 1.025;
