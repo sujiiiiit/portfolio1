@@ -70,15 +70,18 @@ body.dark {
   --color-accent-secondary: #c5b5ff;
   --color-background: #ffffff;
   --graph-fill: rgb(0, 0, 0, 0.1);
-  --light-green-20: #aff0b4;
-  --light-green-30: #7be187;
-  --light-green-40: #4dd161;
-  --light-green-50: #24c241;
-  --light-green-60: #01b328;
-  --light-green-70: #019927;
-  --light-green-80: #008024;
-  --light-green-90: #006620;
-  --partbackground:transparent;
+  /* --green-0:var(var(--graph-fill)); */
+  --green-1: #e8ffe9;
+  --green-2: #aff0b4;
+  --green-3: #7be187;
+  --green-4: #4dd161;
+  --green-5: #24c241;
+  --green-6: #01b328;
+  --green-7: #019927;
+  --green-8: #008024;
+  --green-9: #006620;
+  --green-10: #004d1b;
+  --partbackground: transparent;
 }
 .dark {
   --text-secondary: rgb(134, 134, 139);
@@ -87,8 +90,17 @@ body.dark {
   --color-accent-secondary: #9c40ff;
   --color-background: #000000;
   --graph-fill: rgb(255, 255, 255, 0.2);
-  --partbackground:var(--graph-fill);
-
+  --partbackground: var(--graph-fill);
+  --green-1: #004d1b;
+  --green-2: #006620;
+  --green-3: #008024;
+  --green-4: #019927;
+  --green-5: #01b328;
+  --green-6: #24c241;
+  --green-7: #4dd161;
+  --green-8: #7be187;
+  --green-9: #aff0b4;
+  --green-10: #e8ffe9;
 }
 .gradientanimation {
   line-height: 1.025;

@@ -1,27 +1,39 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import { useLeetCodeStats, TransformedData } from "../api";
+import { fetchData, transformLeetCodeData, TransformedData } from "../api";
 
 const SemiDoughnutChart = () => {
-  // Initial data
   const initialData: TransformedData[] = [
     { label: "Easy", solved: 794, total: 794 },
     { label: "Medium", solved: 1655, total: 1655 },
     { label: "Hard", solved: 702, total: 702 },
   ];
-
   const [data, setData] = useState<TransformedData[]>(initialData);
-  const fetchedData = useLeetCodeStats();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (fetchedData) {
-      setData(fetchedData);
-    }
-  }, [fetchedData]);
+    const fetchDataAndTransform = async () => {
+      try {
+        const fetchedData = await fetchData();
+        if (fetchedData) {
+          const transformedData = transformLeetCodeData(fetchedData);
+          setData(transformedData);
+        }
+      } catch (error) {
+        console.error("Error fetching and transforming data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDataAndTransform();
+  }, []);
 
   const solvedProblems = data.reduce((sum, item) => sum + item.solved, 0);
   const totalProblems = data.reduce((sum, item) => sum + item.total, 0);
+
+
 
   const opacityBackgroundColor = [
     "rgba(28, 186, 186, 0.4)",

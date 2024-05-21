@@ -1,7 +1,27 @@
-import  { useEffect, useState } from 'react';
+import { useEffect } from "react";
+
+interface TotalSubmission {
+  difficulty: string;
+  count: number;
+  submissions: number;
+}
+
+interface RecentSubmission {
+  title: string;
+  titleSlug: string;
+  timestamp: string;
+  statusDisplay: string;
+  lang: string;
+}
+
+interface MatchedUserStats {
+  acSubmissionNum: TotalSubmission[];
+  totalSubmissionNum: TotalSubmission[];
+}
 
 interface LeetCodeStats {
   totalSolved: number;
+  totalSubmissions: TotalSubmission[];
   totalQuestions: number;
   easySolved: number;
   totalEasy: number;
@@ -9,10 +29,12 @@ interface LeetCodeStats {
   totalMedium: number;
   hardSolved: number;
   totalHard: number;
-  acceptanceRate: number;
   ranking: number;
-  contributionPoints: number;
+  contributionPoint: number;
   reputation: number;
+  submissionCalendar: { [key: string]: number };
+  recentSubmissions: RecentSubmission[];
+  matchedUserStats: MatchedUserStats;
 }
 
 export interface TransformedData {
@@ -21,51 +43,35 @@ export interface TransformedData {
   total: number;
 }
 
-export const useLeetCodeStats = () => {
-  const [data, setData] = useState<TransformedData[] | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://leetcode-api-faisalshohag.vercel.app/sujiiit'); // Updated endpoint
-        const stats: LeetCodeStats = await response.json();
-
-        const transformedData: TransformedData[] = [
-          { label: 'Easy', solved: stats.easySolved, total: stats.totalEasy },
-          { label: 'Medium', solved: stats.mediumSolved, total: stats.totalMedium },
-          { label: 'Hard', solved: stats.hardSolved, total: stats.totalHard },
-        ];
-
-        setData(transformedData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return data;
+export const fetchData = async () => {
+  try {
+    const response = await fetch("https://leetcode-api-faisalshohag.vercel.app/uwi");
+    const data: LeetCodeStats = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
 };
-export const getSubmissionCalendarData = () => {
-    const initialData = JSON.stringify({ "1700870400": 2 }); // Initial data
-    const [submissionCalendar, setSubmissionCalendar] = useState(initialData);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch('https://leetcode-api-faisalshohag.vercel.app/uwi');
-          const data = await response.json();
-  
-          // Assuming submissionCalendar is directly available in the response
-          setSubmissionCalendar(JSON.stringify(data.submissionCalendar));
-        } catch (error) {
-          console.error('Error fetching submission calendar data:', error);
-        }
-      };
-  
-      fetchData();
-    }, []);
-  
-    return submissionCalendar;
-  };
+
+export const transformLeetCodeData = (stats: LeetCodeStats): TransformedData[] => {
+  if (!stats) return [];
+  const transformedData: TransformedData[] = [
+    { label: "Easy", solved: stats.easySolved, total: stats.totalEasy },
+    { label: "Medium", solved: stats.mediumSolved, total: stats.totalMedium },
+    { label: "Hard", solved: stats.hardSolved, total: stats.totalHard },
+  ];
+  return transformedData;
+};
+
+export const transformCalendarData = (submissionCalendar: string): { [key: string]: number } => {
+  if (!submissionCalendar) return {};
+  const initialSubmissionData = JSON.parse(submissionCalendar);
+  const counts: { [key: string]: number } = {};
+  for (const [timestamp, count] of Object.entries(initialSubmissionData)) {
+    const date = new Date(Number(timestamp) * 1000);
+    const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    counts[dateString] = count as number;
+  }
+  return counts;
+};

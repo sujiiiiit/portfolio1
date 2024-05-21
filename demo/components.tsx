@@ -154,7 +154,7 @@ import { Calendar } from "lucide-react";
 
 //calender.tsx
 
-// import React from "react";
+// import React, { useEffect, useRef, useState } from "react";
 // import {
 //   format,
 //   fromUnixTime,
@@ -169,7 +169,6 @@ import { Calendar } from "lucide-react";
 //   submissionCalendar: string; // JSON string of submissions
 //   selectedMonths: number[]; // Array of selected months
 //   selectedYear: number;
-//   isCurrentMonth: boolean;
 //   monthData: string[];
 // }
 
@@ -179,38 +178,68 @@ import { Calendar } from "lucide-react";
 //   selectedYear,
 //   monthData,
 // }) => {
-//   // Parse the submissionCalendar JSON string
-//   const submissionData = JSON.parse(submissionCalendar);
-//   const submissionCounts: { [key: string]: number } = {};
+//   const subGraphRef = useRef<HTMLDivElement>(null);
+//   const [submissionCounts, setSubmissionCounts] = useState<{
+//     [key: string]: number;
+//   }>({});
+//   const [tooltipContent, setTooltipContent] = useState<{
+//     [key: string]: string;
+//   }>({});
 
-//   // Convert the timestamps to date strings (format: "dd/MM/yyyy")
-//   for (const [timestamp, count] of Object.entries(submissionData)) {
-//     const date = fromUnixTime(Number(timestamp));
-//     const dateString = format(date, "dd/MM/yyyy");
-//     submissionCounts[dateString] = count as number;
-//   }
+//   useEffect(() => {
+//     const handleResize = () => {
+//       if (subGraphRef.current) {
+//         const subGraph = subGraphRef.current;
+//         subGraph.scrollLeft = subGraph.scrollWidth;
+//       }
+//     };
+
+//     window.addEventListener("resize", handleResize);
+
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     const initialSubmissionData = JSON.parse(submissionCalendar);
+//     const counts: { [key: string]: number } = {};
+//     const tooltips: { [key: string]: string } = {};
+
+//     for (const [timestamp, count] of Object.entries(initialSubmissionData)) {
+//       const date = fromUnixTime(Number(timestamp));
+//       const dateString = format(date, "dd/MM/yyyy");
+//       counts[dateString] = count as number;
+//       tooltips[dateString] = `${count} submissions on ${dateString}`;
+//     }
+
+//     setSubmissionCounts(counts);
+//     setTooltipContent(tooltips);
+//   }, [submissionCalendar]);
 
 //   const renderColorIntensity = (frequency: number) => {
 //     if (frequency === 0) {
-//       return "bg-[#161b22]";
-//     } else if (frequency > 0 && frequency <= 3) {
-//       return "bg-[#006d32]";
-//     } else if (frequency > 3 && frequency <= 5) {
-//       return "bg-[#26a641]";
-//     } else if (frequency > 5) {
-//       return "bg-[#39d353]";
+//       return "#161b22";
+//     } else if (frequency >= 1 && frequency <= 9) {
+//       for (let i = 1; i <= 9; i++) {
+//         if (frequency === i) {
+//           return `var(--green-${i})`;
+//         }
+//       }
+//     } else {
+//       return "#006d32"; // Fallback color if frequency is above 9
 //     }
 //   };
-
 //   const [source, target] = useSingleton({
 //     overrides: ["placement"],
 //   });
 
-
 //   return (
 //     <>
-//       <div className="	 w-full flex gap-1 relative  justify-around	">
-        
+//       <div
+//         ref={subGraphRef}
+//         className="w-full justify-around flex gap-1 relative overflow-hidden overflow-x-scroll"
+//       >
 //         {selectedMonths.map((selectedMonth, index) => {
 //           const date = new Date(selectedYear, selectedMonth);
 //           const currMonth = selectedMonth;
@@ -240,13 +269,8 @@ import { Calendar } from "lucide-react";
 //           );
 //           const currMonthDateArray = getCurrMonthDates(lastDateOfMonth);
 
-
-//           // ${index !== selectedMonths.length - 1 ? "xs:hidden" : ""}
 //           return (
-//             <div
-//               key={index}
-//               className={`monthItem flex flex-col  items-center `}
-//               >
+//             <div key={index} className={`monthItem flex flex-col items-center`}>
 //               <div
 //                 className={`grid grid-rows-7 grid-flow-col gap-x-1 gap-y-1 ${
 //                   firstDayOfMonth === 0 ? "ml-[10px]" : ""
@@ -265,24 +289,29 @@ import { Calendar } from "lucide-react";
 //                     "dd/MM/yyyy"
 //                   );
 //                   const frequency = submissionCounts[dateString] || 0;
+//                   const tooltip =
+//                     tooltipContent[dateString] ||
+//                     `No submissions on ${dateString}`;
 
 //                   return (
 //                     <Tippy
 //                       moveTransition="transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
 //                       singleton={target}
-//                       delay={500}
+//                       delay={100}
 //                       arrow={false}
 //                       theme="custom"
 //                       key={`box-${dayIndex + 1}`}
-//                       content={`${frequency} submissions on ${monthData[selectedMonth]} ${x}, ${selectedYear}`}
+//                       content={tooltip}
 //                       placement="top"
 //                     >
 //                       <div
-//                         className={`${
-//                           frequency > 0
-//                             ? renderColorIntensity(frequency)
-//                             : `bg-transparentWhite`
-//                         }  row-span-1 w-[1rem] h-[1rem] rounded-[3px]`}
+//                         style={{
+//                           background:
+//                             frequency > 0
+//                               ? renderColorIntensity(frequency)
+//                               : "var(--graph-fill)",
+//                         }}
+//                         className={`row-span-1 w-[1rem] h-[1rem] rounded-[3px]`}
 //                       />
 //                     </Tippy>
 //                   );
@@ -306,4 +335,4 @@ import { Calendar } from "lucide-react";
 //   );
 // };
 
-// export default React.memo(Calendar);
+// export default Calendar;

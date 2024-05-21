@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   format,
   fromUnixTime,
@@ -6,14 +6,13 @@ import {
   getDaysInMonth,
   getDay,
   subMonths,
-} from 'date-fns';
-import Tippy, { useSingleton } from '@tippyjs/react';
+} from "date-fns";
+import Tippy, { useSingleton } from "@tippyjs/react";
 
 interface CalendarProps {
   submissionCalendar: string; // JSON string of submissions
   selectedMonths: number[]; // Array of selected months
   selectedYear: number;
-  isCurrentMonth: boolean;
   monthData: string[];
 }
 
@@ -24,7 +23,12 @@ const Calendar: React.FC<CalendarProps> = ({
   monthData,
 }) => {
   const subGraphRef = useRef<HTMLDivElement>(null);
-  const [submissionCounts, setSubmissionCounts] = useState<{ [key: string]: number }>({});
+  const [submissionCounts, setSubmissionCounts] = useState<{
+    [key: string]: number;
+  }>({});
+  const [tooltipContent, setTooltipContent] = useState<{
+    [key: string]: string;
+  }>({});
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,49 +38,49 @@ const Calendar: React.FC<CalendarProps> = ({
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    // Cleanup event listener on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   useEffect(() => {
-    // Parse the submissionCalendar JSON string
-    const submissionData = JSON.parse(submissionCalendar);
+    const initialSubmissionData = JSON.parse(submissionCalendar);
     const counts: { [key: string]: number } = {};
+    const tooltips: { [key: string]: string } = {};
 
-    // Convert the timestamps to date strings (format: "dd/MM/yyyy")
-    for (const [timestamp, count] of Object.entries(submissionData)) {
+    for (const [timestamp, count] of Object.entries(initialSubmissionData)) {
       const date = fromUnixTime(Number(timestamp));
-      const dateString = format(date, 'dd/MM/yyyy');
+      const dateString = format(date, "dd/MM/yyyy");
       counts[dateString] = count as number;
+      tooltips[dateString] = `${count} submissions on ${dateString}`;
     }
 
     setSubmissionCounts(counts);
+    setTooltipContent(tooltips);
   }, [submissionCalendar]);
 
   const renderColorIntensity = (frequency: number) => {
     if (frequency === 0) {
-      return 'bg-[#161b22]';
-    } else if (frequency > 0 && frequency <= 3) {
-      return 'bg-[#006d32]';
-    } else if (frequency > 3 && frequency <= 5) {
-      return 'bg-[#26a641]';
-    } else if (frequency > 5) {
-      return 'bg-[#39d353]';
+      return "#161b22";
+    } else if (frequency >= 1 && frequency <= 9) {
+      for (let i = 1; i <= 9; i++) {
+        if (frequency === i) {
+          return `var(--green-${i})`;
+        }
+      }
+    } else {
+      return "#006d32"; // Fallback color if frequency is above 9
     }
   };
-
   const [source, target] = useSingleton({
-    overrides: ['placement'],
+    overrides: ["placement"],
   });
 
   return (
     <>
       <div
-        id="subGraph"
         ref={subGraphRef}
         className="w-full justify-around flex gap-1 relative overflow-hidden overflow-x-scroll"
       >
@@ -87,57 +91,79 @@ const Calendar: React.FC<CalendarProps> = ({
           const firstDayOfMonth = getDay(startOfMonth(date));
           const lastDateOfMonth = getDaysInMonth(date);
           const lastDateOfLastMonth = getDaysInMonth(subMonths(date, 1));
-          const monthString = format(date, 'MMM');
+          const monthString = format(date, "MMM");
 
-          const getDatesOfLastMonth = (firstDayOfMonth: number, lastDateOfLastMonth: number) => {
-            return Array.from({ length: firstDayOfMonth }, (_, index) => lastDateOfLastMonth - firstDayOfMonth + index + 1);
+          const getDatesOfLastMonth = (
+            firstDayOfMonth: number,
+            lastDateOfLastMonth: number
+          ) => {
+            return Array.from(
+              { length: firstDayOfMonth },
+              (_, index) => lastDateOfLastMonth - firstDayOfMonth + index + 1
+            );
           };
 
           const getCurrMonthDates = (lastDateOfMonth: number): number[] => {
             return Array.from({ length: lastDateOfMonth }, (_, i) => i + 1);
           };
 
-          const datesOfLastMonth = getDatesOfLastMonth(firstDayOfMonth, lastDateOfLastMonth);
+          const datesOfLastMonth = getDatesOfLastMonth(
+            firstDayOfMonth,
+            lastDateOfLastMonth
+          );
           const currMonthDateArray = getCurrMonthDates(lastDateOfMonth);
 
           return (
             <div key={index} className={`monthItem flex flex-col items-center`}>
               <div
                 className={`grid grid-rows-7 grid-flow-col gap-x-1 gap-y-1 ${
-                  firstDayOfMonth === 0 ? 'ml-[10px]' : ''
+                  firstDayOfMonth === 0 ? "ml-[10px]" : ""
                 }`}
               >
                 {datesOfLastMonth.map((_date, index) => (
-                  <div key={`empty-${index}`} className="invisible row-span-1" />
+                  <div
+                    key={`empty-${index}`}
+                    className="invisible row-span-1"
+                  />
                 ))}
 
                 {currMonthDateArray.map((x, dayIndex) => {
-                  const dateString = format(new Date(currYear, currMonth, x), 'dd/MM/yyyy');
+                  const dateString = format(
+                    new Date(currYear, currMonth, x),
+                    "dd/MM/yyyy"
+                  );
                   const frequency = submissionCounts[dateString] || 0;
+                  const tooltip =
+                    tooltipContent[dateString] ||
+                    `No submissions on ${dateString}`;
 
                   return (
                     <Tippy
                       moveTransition="transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)"
                       singleton={target}
-                      delay={500}
+                      delay={100}
                       arrow={false}
                       theme="custom"
                       key={`box-${dayIndex + 1}`}
-                      content={`${frequency} submissions on ${monthData[selectedMonth]} ${x}, ${selectedYear}`}
+                      content={tooltip}
                       placement="top"
                     >
                       <div
-                        className={`${
-                          frequency > 0
-                            ? renderColorIntensity(frequency)
-                            : `bg-transparentWhite`
-                        }  row-span-1 w-[1rem] h-[1rem] rounded-[3px]`}
+                        style={{
+                          background:
+                            frequency > 0
+                              ? renderColorIntensity(frequency)
+                              : "var(--graph-fill)",
+                        }}
+                        className={`row-span-1 w-[1rem] h-[1rem] rounded-[3px]`}
                       />
                     </Tippy>
                   );
                 })}
               </div>
-              <div className="mt-2 font-Gist text-center text-textSecondary text-xs">{monthString}</div>
+              <div className="mt-2 font-Gist text-center text-textSecondary text-xs">
+                {monthString}
+              </div>
             </div>
           );
         })}
