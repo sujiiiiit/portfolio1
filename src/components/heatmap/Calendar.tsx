@@ -20,7 +20,7 @@ const Calendar: React.FC<CalendarProps> = ({
   submissionCalendar,
   selectedMonths,
   selectedYear,
-  monthData,
+  // monthData,
 }) => {
   const subGraphRef = useRef<HTMLDivElement>(null);
   const [submissionCounts, setSubmissionCounts] = useState<{

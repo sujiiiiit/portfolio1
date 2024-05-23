@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import LeetcodeCharts from "./chart/LeetcodeChart";
 import { getMonth } from "date-fns";
 import SubmissionGraph from "./heatmap/Calendar";

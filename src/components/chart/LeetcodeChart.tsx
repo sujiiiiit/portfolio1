@@ -10,7 +10,6 @@ const SemiDoughnutChart = () => {
     { label: "Hard", solved: 702, total: 702 },
   ];
   const [data, setData] = useState<TransformedData[]>(initialData);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchDataAndTransform = async () => {
@@ -22,8 +21,6 @@ const SemiDoughnutChart = () => {
         }
       } catch (error) {
         console.error("Error fetching and transforming data:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -32,8 +29,6 @@ const SemiDoughnutChart = () => {
 
   const solvedProblems = data.reduce((sum, item) => sum + item.solved, 0);
   const totalProblems = data.reduce((sum, item) => sum + item.total, 0);
-
-
 
   const opacityBackgroundColor = [
     "rgba(28, 186, 186, 0.4)",
@@ -127,7 +122,7 @@ const SemiDoughnutChart = () => {
         }}
       >
         <div className="center-items absolute top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-textSecondary">
-          <div className="flex flex-nowrap items-baseline	">
+          <div className="flex flex-nowrap items-baseline ">
             <span className="text-2xl text-nowrap text-textPrimary">
               {solvedProblems}
             </span>
