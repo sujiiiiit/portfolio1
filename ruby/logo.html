@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dotted Pixel Art Icon</title>
+    <style>
+      canvas {
+        border: 1px solid #000; /* Add border for visualization */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas width="100" height="100" id="myCanvas"></canvas>
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Function to calculate the optimal pixel size based on canvas size and padding
+      function calculatePixelSize(canvasWidth, canvasHeight) {
+        const minDimension = Math.min(canvasWidth, canvasHeight) - 2;
+        return Math.floor(minDimension / 24); // Adjust this value as needed for desired pixel density
+      }
+
+      // Function to draw the pixel art
+      function drawPixelArt(data, pixelSize, padding) {
+        const dotRadius = pixelSize / 2;
+        const colorMap = {
+          0: "black",
+          1: "transparent", // Change black to red
+          2: "transparent", // Change black to blue
+        };
+
+        const renderWidth = data[0].length * pixelSize;
+        const renderHeight = data.length * pixelSize;
+        const xOffset = (canvas.width - renderWidth) / 2;
+        const yOffset = (canvas.height - renderHeight) / 2;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Render pixel art with padding
+        data.forEach((row, y) => {
+          row.forEach((value, x) => {
+            if (value !== 2 || value !== 1) {
+              ctx.fillStyle = colorMap[value];
+              ctx.beginPath();
+              ctx.arc(
+                x * pixelSize + xOffset + pixelSize / 2,
+                y * pixelSize + yOffset + pixelSize / 2,
+                dotRadius,
+                0,
+                Math.PI * 2
+              );
+              ctx.fill();
+            }
+          });
+        });
+      }
+
+      // Fetch JSON matrix from Ruby script
+      fetch("http://localhost:4567/logo_data")
+        .then((response) => response.json())
+        .then((data) => {
+          const pixelSize = calculatePixelSize(canvas.width, canvas.height);
+          drawPixelArt(data, pixelSize); // Draw pixel art
+        })
+        .catch((error) => console.error("Error fetching JSON:", error));
+    </script>
+  </body>
+</html>
